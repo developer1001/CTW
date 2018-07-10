@@ -9,7 +9,6 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import javax.annotation.Resource;
 
 /**
  * @program: CTW
@@ -19,7 +18,7 @@ import javax.annotation.Resource;
  **/
 @Namespace("/")
 @Scope("prototype")
-@Action("comSituation")
+@Action("user")
 @Results( {
 //        @Result(name="success",location="/success.jsp",type=""),
 //        @Result(name="failure",location="/failure.jsp")
@@ -33,6 +32,7 @@ public class UserAction extends ActionSupport {
     }
 
     public String addUser() {
+        System.out.print("0000000000000000002222222222");
         try {
             userService.addUser(user);
         } catch (Exception e) {
