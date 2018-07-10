@@ -14,11 +14,11 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public class UserDao {
-//    @Autowired
-//    private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     public void addUser(User user ) {
-//        Session session = sessionFactory.getCurrentSession();
-//        session.save(user);
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
     }
 }
