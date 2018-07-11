@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>index</title>
   </head>
   <body>
-  好了吧
+  欢迎来到首页
   </body>
 </html>

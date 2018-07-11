@@ -1,5 +1,6 @@
 package com.zgc.action;
 
+import com.base.action.BaseAction;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zgc.model.User;
 import com.zgc.service.IUserService;
@@ -16,36 +17,30 @@ import org.springframework.context.annotation.Scope;
 @Namespace("/")
 @Scope("prototype")
 @Results( {
-        @Result(name="success",location="/index.jsp"),
-//        @Result(name="failure",location="/failure.jsp")
+//        @Result(name="success",location="/index.jsp"),
+//        @Result(name="failure",location="/index.jsp")
 })
-@Action
-public class UserAction extends ActionSupport {
+public class UserAction extends BaseAction {
     @Autowired
     private IUserService userService;
+
     private User user;
     public void setUser(User user) {
         this.user = user;
     }
 
-    @Action("addUser")
     public String addUser() {
-        System.out.print("0000000000000000002222222222");
         try {
             userService.addUser(user);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.print("----------------------------------------");
-            return "failure";
+            return "error";
         }
-        System.out.print("++++++++++++++++++++++++++++++++++++++++++++++");
         return "success";
     }
-//http://localhost:8080/CTW/user!a.do
-    @Action("aa")
+//http://localhost:8080/CTW/ctw_a.do
     public void a(){
         System.out.print(999999999);
-       // return "success";
     }
 
 }

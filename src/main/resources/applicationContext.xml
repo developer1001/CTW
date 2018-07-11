@@ -51,6 +51,13 @@
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <!--扫描hibernate的实体的路径-->
+                <value>com.zgc.model</value>
+                <!--<value>com.bimatrix.revit.shiro</value>-->
+            </list>
+        </property>
         <property name="hibernateProperties">
             <props>
                 <!--配置Hibernate的方言-->

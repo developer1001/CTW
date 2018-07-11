@@ -18,7 +18,8 @@ public class UserDao {
     private SessionFactory sessionFactory;
 
     public void addUser(User user ) {
-        Session session = sessionFactory.getCurrentSession();
+//        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         session.save(user);
     }
 }

@@ -12,8 +12,10 @@ import javax.persistence.*;
 @Table(name = "sys_user")
 public class User {
     private int id;
-    private String name;
+    private String userName;
+    private String loginName;
     private String password;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", length=10)
@@ -24,19 +26,29 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
-    @Column(name="user_name", length=50)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
     @Column(name="password", length=50)
     public String getPassword() {
         return password;
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name="user_name", length=50)
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Column(name="login_name", length=50)
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 }
