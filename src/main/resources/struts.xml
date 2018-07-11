@@ -4,12 +4,16 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <constant name="struts.convention.package.locators" value="controller"/>
-
+    <!--
+		该属性设置Struts 2是否支持动态方法调用，该属性的默认值是true。如果需要关闭动态方法调用，则可设置该属性为false。
+		如动态调用如：user!list.action
+	-->
     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <constant name="struts.convention.package.locators" value="controller"/>
     <!-- 开启使用开发模式，详细错误提示 -->
-    <constant name="struts.devMode" value="false" />
-    <!-- 将对象交给spring管理 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 将对象交给spring管理 ,指定由spring负责action对象的创建-->
     <constant name="struts.objectFactory" value="spring" />
     <!-- 指定资源编码类型 -->
     <constant name="struts.i18n.encoding" value="UTF-8" />
@@ -17,7 +21,65 @@
     <constant name="struts.i18n.reload" value="false" />
     <!-- 指定每次配置文件更改后，自动重新加载 -->
     <constant name="struts.configuration.xml.reload" value="false" />
-    <!-- 默认后缀名 -->
-    <constant name="struts.action.extension" value="action,do," />
+    <!-- 设置浏览器是否缓存静态内容 -->
+    <constant name="struts.serve.static.browserCache" value="true" />
+    <!-- 文件上传最大值 -->
+    <constant name="struts.multipart.maxSize" value="104857600" />
+    <!-- Action名称中是否可使用斜线 -->
+    <constant name="struts.enable.SlashesInActionNames" value="false" />
+    <!-- 允许标签中使用表达式语法 -->
+    <constant name="struts.tag.altSyntax" value="true" />
+    <!-- 默认后缀名 ,所有匹配*.do的请求都由struts2处理-->
+    <constant name="struts.action.extension" value="do" />
 
+    <constant name="struts.convention.default.parent.package" value="default" />
+    <package name="default" extends="struts-default" namespace="/" strict-method-invocation="false">
+        <global-allowed-methods>regex:.*</global-allowed-methods>
+        <action name="user" class="com.zgc.action.UserAction">
+            <result name="success">/index.jsp</result>
+        </action>
+        <!--<interceptors>-->
+            <!--&lt;!&ndash; javamelody拦截器 &ndash;&gt;-->
+            <!--<interceptor name="monitoring" class="net.bull.javamelody.StrutsInterceptor" />-->
+            <!--<interceptor-stack name="monitoringStack">-->
+                <!--<interceptor-ref name="monitoring" />-->
+                <!--<interceptor-ref name="defaultStack" />-->
+            <!--</interceptor-stack>-->
+            <!--&lt;!&ndash; 字符集拦截器 &ndash;&gt;-->
+            <!--<interceptor name="encodingInterceptor" class="com.tianditu.safety.web.interceptor.EncodingInterceptor" />-->
+            <!--<interceptor-stack name="encodingStack">-->
+                <!--<interceptor-ref name="monitoringStack"></interceptor-ref>-->
+                <!--<interceptor-ref name="encodingInterceptor"></interceptor-ref>-->
+            <!--</interceptor-stack>-->
+            <!--&lt;!&ndash; session拦截器 &ndash;&gt;-->
+            <!--<interceptor name="sessionInterceptor" class="com.tianditu.safety.web.interceptor.SessionInterceptor" />-->
+            <!--<interceptor-stack name="sessionStack">-->
+                <!--<interceptor-ref name="encodingStack"></interceptor-ref>-->
+                <!--<interceptor-ref name="sessionInterceptor">-->
+                    <!--&lt;!&ndash; doNotNeedSessionAndSecurity_ 开头的和doNotNeedSession_ 开头的方法不拦截 &ndash;&gt;-->
+                    <!--<param name="excludeMethods">doNotNeedSession_*,doNotNeedSessionAndSecurity_*,pub_*</param>-->
+                <!--</interceptor-ref>-->
+            <!--</interceptor-stack>-->
+            <!--&lt;!&ndash; 权限拦截器 &ndash;&gt;-->
+            <!--<interceptor name="securityInterceptor" class="com.tianditu.safety.web.interceptor.SecurityInterceptor" />-->
+            <!--<interceptor-stack name="securityStack">-->
+                <!--<interceptor-ref name="sessionStack"></interceptor-ref>-->
+                <!--<interceptor-ref name="securityInterceptor">-->
+                    <!--&lt;!&ndash; doNotNeedSessionAndSecurity_ 开头的和doNotNeedSecurity_ 开头和pub_开头的方法不拦截 &ndash;&gt;-->
+                    <!--<param name="excludeMethods">doNotNeedSecurity_*,doNotNeedSessionAndSecurity_*,pub_*</param>-->
+                <!--</interceptor-ref>-->
+            <!--</interceptor-stack>-->
+        <!--</interceptors>-->
+        <!--&lt;!&ndash; 全局拦截器栈 &ndash;&gt;-->
+        <!--<default-interceptor-ref name="securityStack"></default-interceptor-ref>-->
+
+        <!--<global-results>-->
+            <!--&lt;!&ndash; 没有session &ndash;&gt;-->
+            <!--<result name="noSession">/error/noSession.jsp</result>-->
+            <!--&lt;!&ndash; 没有权限 &ndash;&gt;-->
+            <!--<result name="noSecurity">/error/noSecurity.jsp</result>-->
+            <!--&lt;!&ndash; struts抛异常 &ndash;&gt;-->
+            <!--<result name="strutsException">/error/strutsException.jsp</result>-->
+        <!--</global-results>-->
+    </package>
 </struts>

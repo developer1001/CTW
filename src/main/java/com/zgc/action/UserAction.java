@@ -3,10 +3,7 @@ package com.zgc.action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zgc.model.User;
 import com.zgc.service.IUserService;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
@@ -18,11 +15,11 @@ import org.springframework.context.annotation.Scope;
  **/
 @Namespace("/")
 @Scope("prototype")
-@Action("user")
 @Results( {
-//        @Result(name="success",location="/success.jsp",type=""),
+        @Result(name="success",location="/index.jsp"),
 //        @Result(name="failure",location="/failure.jsp")
 })
+@Action
 public class UserAction extends ActionSupport {
     @Autowired
     private IUserService userService;
@@ -31,6 +28,7 @@ public class UserAction extends ActionSupport {
         this.user = user;
     }
 
+    @Action("addUser")
     public String addUser() {
         System.out.print("0000000000000000002222222222");
         try {
@@ -42,6 +40,12 @@ public class UserAction extends ActionSupport {
         }
         System.out.print("++++++++++++++++++++++++++++++++++++++++++++++");
         return "success";
+    }
+//http://localhost:8080/CTW/user!a.do
+    @Action("aa")
+    public void a(){
+        System.out.print(999999999);
+       // return "success";
     }
 
 }
