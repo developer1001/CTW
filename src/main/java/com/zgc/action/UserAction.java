@@ -29,6 +29,11 @@ public class UserAction extends BaseAction {
         this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+//http://localhost:8080/CTW/User_addUser.do
     public String addUser() {
         try {
             userService.addUser(user);
@@ -38,7 +43,7 @@ public class UserAction extends BaseAction {
         }
         return "success";
     }
-//http://localhost:8080/CTW/ctw_a.do
+//http://localhost:8080/CTW/User_a.do
     public void a(){
         System.out.print(999999999);
     }
