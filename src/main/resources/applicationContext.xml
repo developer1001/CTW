@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 自动扫描与装配bean -->
     <!--<context:component-scan base-package="com.zgc"></context:component-scan>-->
-    <context:component-scan base-package="com.zgc" />
+    <context:component-scan base-package="com.zgc,com.base" />
     <!-- 加载jdbc配置文件 -->
     <context:property-placeholder location="classpath:jdbc.properties" />
     <!-- 数据源配置 -->
@@ -56,9 +57,29 @@
     </bean>
 
     <!-- 用注解来实现事务管理 -->
-    <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <tx:annotation-driven transaction-manager="txManager"/>
+    <!-- 注解方式配置事物 -->
+    <!--<tx:annotation-driven transaction-manager="txManager"/>-->
+    <!-- 拦截器方式配置事物 -->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="saveOrUpdate*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="grant*" propagation="REQUIRED" />
+            <tx:method name="init*" propagation="REQUIRED" />
+            <tx:method name="*" propagation="REQUIRED"  />
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <!-- 第一个*代表所有的返回值类型；第二个*代表所有的类；第三个*代表类所有方法；..代表子或者孙子包；最后一个..代表所有的参数 -->
+        <aop:pointcut id="transactionPointcut" expression="(execution(* com.zgc.service..*impl.*(..)))" />
+        <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
+    </aop:config>
+    <!-- 使用annotation定义事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
 </beans>
