@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
  * @create: 2018-07-10 13:12
  **/
 @Repository
-public class UserDao extends BaseDao {
+public class UserDao extends BaseDao<User> {
 
-    public void addUser(User user ) {
-        getCurrentSession().save(user);
+    public int addUser(User user ) {
+       return save(user);
     }
 }

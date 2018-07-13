@@ -1,6 +1,7 @@
 package com.zgc.action;
 
 import com.base.action.BaseAction;
+import com.base.model.Json;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zgc.model.User;
 import com.zgc.service.IUserService;
@@ -35,18 +36,20 @@ public class UserAction extends BaseAction {
     }
 
 //http://localhost:8080/CTW/User_addUser.do
-    public String addUser() {
+    public void addUser() {
+        int result = -1;
         try {
-            userService.addUser(user);
+           result =  userService.addUser(user);
         } catch (Exception e) {
             e.printStackTrace();
-            return "error";
         }
-        return "success";
+        if (result == 1)
+            writeJson(new Json(true,"添加用户成功"));
     }
 //http://localhost:8080/CTW/User_a.do
     public void a(){
         System.out.print(999999999);
+        writeJson(new Json(true,"这是一个测试例子，如果你能看到返回的json串值，说明执行正确"));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.zgc.service.impl;
 
+import com.base.util.MD5;
 import com.zgc.dao.UserDao;
 import com.zgc.model.User;
 import com.zgc.service.IUserService;
@@ -19,7 +20,8 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     UserDao userDao;
     @Override
-    public void addUser(User user) {
-        userDao.addUser(user);
+    public int addUser(User user) {
+        user.setPassword(MD5.MD5Encrypt(user.getPassword()));
+       return userDao.addUser(user);
     }
 }

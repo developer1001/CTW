@@ -6,5 +6,5 @@ public interface IUserService {
      * 添加用户
      * @param user
      */
-    public void addUser(User user);
+    public int addUser(User user);
 }
