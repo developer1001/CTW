@@ -16,9 +16,9 @@
 </script>
 <body>
 <form action="../User_addUser.do" method="post">
-    <input type="text" name="user.userName" placeholder="userName"><br>
-    <input type="text" name="user.loginName" id="" placeholder="loginName"><br>
-    <input type="password" placeholder="password" name="user.password"><br>
+    <input type="text" name="baseEntity.userName" placeholder="userName"><br>
+    <input type="text" name="baseEntity.loginName" id="" placeholder="loginName"><br>
+    <input type="password" placeholder="password" name="baseEntity.password"><br>
     <input type="button" onclick="document.forms[0].submit()" value="提交表单">
 </form>
 </body>

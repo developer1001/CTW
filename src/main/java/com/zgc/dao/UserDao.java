@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDao extends BaseDao<User> {
 
-    public int addUser(User user ) {
-       return save(user);
-    }
+//    public int addUser(User user) {
+//       return save(user);
+//    }
 }

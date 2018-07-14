@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class BaseDao<T> {
+public  class BaseDao<T> {
     @Autowired
     SessionFactory seesionFactory;
 
@@ -28,7 +28,7 @@ public class BaseDao<T> {
     }
 
     /**
-     * 保存一个对象
+     * 保存一个对象，成功返回1，失败返回-1
      * @param t
      */
     public int save(T t){
@@ -49,20 +49,23 @@ public class BaseDao<T> {
     }
 
     /**
-     * 保存或更新一个对象
+     * 保存或更新一个对象,成功返回1，失败返回-1
      * @param t
      */
-    public void saveOrUpdate(T t){
+    public int saveOrUpdate(T t){
         Session session =  seesionFactory.openSession();
+        int result = -1;
         session.beginTransaction();
         try {
-            session.save(t);
+            session.saveOrUpdate(t);
             session.getTransaction().commit();
+            return 1;
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
         } finally {
             session.close();
+            return result;
         }
     }
 
@@ -106,17 +109,38 @@ public class BaseDao<T> {
      * 通过sql语句执行更新、删除、添加操作
      * @param sql
      */
-    public int execute(String sql){
+    public int executeBySql(String sql){
         Session session =  seesionFactory.openSession();
         session.beginTransaction();
-        //执行前，赋值-100，操作成功的话，数据库返回值是1;
-        int result = -100;
+        //执行前，赋值-1，操作成功的话，数据库返回值是1;
+        int result = -1;
         try {
             result =  session.createSQLQuery(sql).executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    /**
+     * 利用hql语句进行删除和更新
+     * @param hql
+     * @return
+     */
+    public int executeByHql(String hql){
+        Session session = seesionFactory.openSession();
+        session.beginTransaction();
+        int result = -1;
+        try {
+            result = session.createQuery(hql).executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             session.close();
         }

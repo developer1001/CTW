@@ -1,5 +1,7 @@
 package com.zgc.service.impl;
 
+import com.base.dao.BaseDao;
+import com.base.service.Impl.BaseServiceImpl;
 import com.base.util.MD5;
 import com.zgc.dao.UserDao;
 import com.zgc.model.User;
@@ -15,13 +17,19 @@ import org.springframework.transaction.annotation.Transactional;
  * @create: 2018-07-10 13:18
  **/
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements IUserService {
 
     @Autowired
     UserDao userDao;
+//    @Override
+//    public int addUser(User user) {
+//        user.setPassword(MD5.MD5Encrypt(user.getPassword()));
+//       return userDao.addUser(user);
+//    }
+
+
     @Override
-    public int addUser(User user) {
-        user.setPassword(MD5.MD5Encrypt(user.getPassword()));
-       return userDao.addUser(user);
+    public BaseDao<User> getBaseDao() {
+        return userDao;
     }
 }

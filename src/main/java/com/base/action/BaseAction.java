@@ -10,9 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
-public class BaseAction extends ActionSupport implements ServletRequestAware,ServletResponseAware,SessionAware {
+public abstract class BaseAction<T> extends ActionSupport implements ServletRequestAware,ServletResponseAware,SessionAware {
+
+    //接收参数id
+    private int id;
+    //接收参数id字符串，例如"25,26,27"
+    private String ids;
+    //接收一个实体对象
+    private T baseEntity;
 
     protected HttpServletRequest httpServletRequest;
     protected HttpServletResponse httpServletResponse;
@@ -42,6 +50,30 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,Ser
 
     public HttpSession getHttpSession() {
         return httpSession;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
+
+    public T getBaseEntity() {
+        return baseEntity;
+    }
+
+    public void setBaseEntity(T baseEntity) {
+        this.baseEntity = baseEntity;
     }
 
     public void  writeJson(Object object){
