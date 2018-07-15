@@ -3,9 +3,11 @@ package com.base.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 public  class BaseDao<T> {
     @Autowired
@@ -145,5 +147,32 @@ public  class BaseDao<T> {
             session.close();
         }
         return result;
+    }
+
+    /**
+     * map集合和hql语句结合起来，用占位符形式传参，处理更新或删除
+     * @param hql
+     * @param map
+     * @return
+     */
+    public int updateOrDel(String hql, Map<String,Object> map){
+        Session session = seesionFactory.openSession();
+        session.beginTransaction();
+        int result = -1;
+        try {
+            Query query = session.createQuery(hql);
+            for (String key:map.keySet()){
+                query.setParameter(key,map.get(key));
+            }
+            result = query.executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+
     }
 }

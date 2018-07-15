@@ -1,6 +1,7 @@
 package com.base.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IBaseService<T> {
 
@@ -45,4 +46,12 @@ public interface IBaseService<T> {
      * @return
      */
     public int executeByhql(String hql);
+
+    /**
+     * map集合和hql语句结合起来，用占位符形式传参，处理更新或删除
+     * @param hql
+     * @param map
+     * @return
+     */
+    public int updateOrDel(String hql, Map<String,Object> map);
 }

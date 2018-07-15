@@ -4,6 +4,7 @@ import com.base.dao.BaseDao;
 import com.base.service.IBaseService;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
 
@@ -37,5 +38,10 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     @Override
     public int executeByhql(String hql) {
         return getBaseDao().executeByHql(hql);
+    }
+
+    @Override
+    public int updateOrDel(String hql, Map<String, Object> map) {
+        return getBaseDao().updateOrDel(hql,map);
     }
 }
