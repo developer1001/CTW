@@ -16,11 +16,11 @@ import java.util.Map;
 public abstract class BaseAction<T> extends ActionSupport implements ServletRequestAware,ServletResponseAware,SessionAware {
 
     //接收参数id
-    private int id;
+    protected int id;
     //接收参数id字符串，例如"25,26,27"
-    private String ids;
+    protected String ids;
     //接收一个实体对象
-    private T baseEntity;
+    protected T baseEntity;
 
     protected HttpServletRequest httpServletRequest;
     protected HttpServletResponse httpServletResponse;

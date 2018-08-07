@@ -74,7 +74,7 @@ public class UserAction extends BaseAction<User> {
      * 根据id删除一个用户
      */
     public void deleteUser(){
-        int result = userService.executeByhql("delete from User where id = "+getId());
+        int result = userService.executeByhql("delete from User where id = "+id);
         writeJson(new Json(true,"删除成功"));
     }
 
