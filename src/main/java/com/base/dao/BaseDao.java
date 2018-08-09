@@ -276,9 +276,10 @@ public  class BaseDao<T> {
            StringBuilder sb = new StringBuilder();
            for (String key:map.keySet()){
                if (!key.equals("id"))//过滤掉ID
-                   sb.append(key+"= :"+key);
+                   sb.append(key+"= :"+key+",");
            }
-           String hql = "update "+entityClass.getSimpleName() + " set " + sb.toString() + " where id= :id";
+           String str = sb.toString().substring(0,sb.toString().length()-1);
+           String hql = "update "+entityClass.getSimpleName() + " set " + str + " where id= :id";
            map.put("id",id);
            flag = updateOrDel(hql,map);
        }

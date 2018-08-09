@@ -10,9 +10,9 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-
 import java.sql.Timestamp;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,12 +39,15 @@ public class CitizenAction extends BaseAction<Citizen> {
         citizen.setAddress("测试地址");
         citizen.setName("laoyangtou");
         citizen.setSex("xy");
-        citizen.setBirthday(new Date());
-        citizen.addCards(new BankCard("建设银行",new Date(),new Date(new Date().getTime()+10*365*24*60*60*10000),citizen));
-        citizen.addCards(new BankCard("工商银行",new Date(),new Date(new Date().getTime()+10*365*24*60*60*10000),citizen));
-        citizen.addCards(new BankCard("人民银行",new Date(),new Date(new Date().getTime()+10*365*24*60*60*10000),citizen));
-        citizen.setIdentityCard(new IdentityCard(""+(int)((Math.random()*564893548)),new Timestamp(new Date().getTime()),
-                new Timestamp(new Date().getTime()+10*365*24*60*60*10000),"西虹市公安局",citizen));
+        citizen.setBirthday(new java.sql.Date(new java.util.Date().getTime()));
+        citizen.addCards(new BankCard("建设银行",new java.sql.Date(new java.util.Date().getTime()),
+                new java.sql.Date(new java.util.Date().getTime()+10*365*24*60*60*10000),citizen));
+        citizen.addCards(new BankCard("工商银行",new java.sql.Date(new java.util.Date().getTime()),
+                new java.sql.Date(new java.util.Date().getTime()+10*365*24*60*60*10000),citizen));
+        citizen.addCards(new BankCard("人民银行",new java.sql.Date(new java.util.Date().getTime()),
+                new java.sql.Date(new java.util.Date().getTime()+10*365*24*60*60*10000),citizen));
+        citizen.setIdentityCard(new IdentityCard(""+(int)((Math.random()*564893548)),new Timestamp(new java.util.Date().getTime()),
+                new Timestamp(new java.util.Date().getTime()+10*365*24*60*60*10000),"西虹市公安局",citizen));
         int result = -1;
         try {
 //            result =  citizenService.save(getBaseEntity());
@@ -107,6 +110,13 @@ public class CitizenAction extends BaseAction<Citizen> {
         //写一个测试的map集合
         Map<String,Object> map = new HashMap<>();
         map.put("bank",""+((int)(Math.random()*4654164)));
+        java.sql.Date date = null;
+        try {
+            date = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse("2028-08-09").getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        map.put("validity_period",date);
         try {
             citizenService.updateSingleObj(BankCard.class,id,map);
             writeJson(new Json(true,"操作成功"));

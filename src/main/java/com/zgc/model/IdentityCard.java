@@ -27,7 +27,7 @@ public class IdentityCard {
     public void setId(String id) {
         this.id = id;
     }
-
+    @JSONField (format="yyyy-MM-dd HH:mm:ss")
     public Timestamp getMade_time() {
         return made_time;
     }
@@ -35,7 +35,7 @@ public class IdentityCard {
     public void setMade_time(Timestamp made_time) {
         this.made_time = made_time;
     }
-
+    @JSONField (format="yyyy-MM-dd HH:mm:ss")
     public Timestamp getValidity_period() {
         return validity_period;
     }

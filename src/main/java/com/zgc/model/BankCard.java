@@ -2,7 +2,7 @@ package com.zgc.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * @program: CTW
@@ -36,7 +36,7 @@ public class BankCard {
     public void setBank(String bank) {
         this.bank = bank;
     }
-
+    @JSONField (format="yyyy-MM-dd")
     public Date getMade_time() {
         return made_time;
     }
@@ -44,7 +44,7 @@ public class BankCard {
     public void setMade_time(Date made_time) {
         this.made_time = made_time;
     }
-
+    @JSONField (format="yyyy-MM-dd")
     public Date getValidity_period() {
         return validity_period;
     }

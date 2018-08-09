@@ -1,7 +1,9 @@
 package com.zgc.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,7 +57,7 @@ public class Citizen {
     public void setAddress(String address) {
         this.address = address;
     }
-
+    @JSONField(format="yyyy-MM-dd")
     public Date getBirthday() {
         return birthday;
     }
