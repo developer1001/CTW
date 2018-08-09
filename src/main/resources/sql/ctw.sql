@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-08-08 17:56:53
+Date: 2018-08-09 17:58:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,12 +25,23 @@ CREATE TABLE `bank_card` (
   `made_time` date NOT NULL COMMENT '开卡时间',
   `validity_period` date NOT NULL COMMENT '有效期',
   `citizen_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `FK4o3pe71gc9fuxe691mbcdn0nw` (`citizen_id`),
+  CONSTRAINT `FK4o3pe71gc9fuxe691mbcdn0nw` FOREIGN KEY (`citizen_id`) REFERENCES `citizen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bank_card
 -- ----------------------------
+INSERT INTO `bank_card` VALUES ('7', '建设银行', '2018-08-09', '2018-08-22', '3');
+INSERT INTO `bank_card` VALUES ('8', '工商银行', '2018-08-09', '2018-08-22', '3');
+INSERT INTO `bank_card` VALUES ('9', '人民银行', '2018-08-09', '2018-08-22', '3');
+INSERT INTO `bank_card` VALUES ('10', '建设银行', '2018-08-09', '2018-08-22', '4');
+INSERT INTO `bank_card` VALUES ('11', '1172917', '2018-08-09', '2018-08-22', '4');
+INSERT INTO `bank_card` VALUES ('12', '人民银行', '2018-08-09', '2018-08-22', '4');
+INSERT INTO `bank_card` VALUES ('13', '工商银行', '2018-08-09', '2018-08-22', '5');
+INSERT INTO `bank_card` VALUES ('14', '人民银行', '2018-08-09', '2018-08-22', '5');
+INSERT INTO `bank_card` VALUES ('15', '建设银行', '2018-08-09', '2018-08-22', '5');
 
 -- ----------------------------
 -- Table structure for citizen
@@ -43,12 +54,14 @@ CREATE TABLE `citizen` (
   `address` varchar(50) DEFAULT NULL COMMENT '家庭地址',
   `birthday` date DEFAULT NULL COMMENT '生日',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of citizen
 -- ----------------------------
-INSERT INTO `citizen` VALUES ('14', 'yang', 'xy', 'henan', '2018-08-01');
+INSERT INTO `citizen` VALUES ('3', 'laoyangtou', 'xy', '测试地址', '2018-08-09');
+INSERT INTO `citizen` VALUES ('4', 'laoyangtou', 'xy', '测试地址', '2018-08-09');
+INSERT INTO `citizen` VALUES ('5', 'laoyangtou', 'xy', '测试地址', '2018-08-09');
 
 -- ----------------------------
 -- Table structure for group
@@ -73,13 +86,18 @@ CREATE TABLE `identity_card` (
   `made_time` datetime NOT NULL COMMENT '制卡时间',
   `validity_period` datetime NOT NULL COMMENT '有效期',
   `made_address` varchar(50) DEFAULT NULL COMMENT '制卡地点',
-  `citizen_id` varchar(10) NOT NULL COMMENT '关联的公民id',
-  PRIMARY KEY (`id`)
+  `citizen_id` int(10) NOT NULL COMMENT '关联的公民id',
+  PRIMARY KEY (`id`),
+  KEY `FK1d9l16hrh9pj7mnwxkkssvns1` (`citizen_id`),
+  CONSTRAINT `FK1d9l16hrh9pj7mnwxkkssvns1` FOREIGN KEY (`citizen_id`) REFERENCES `citizen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of identity_card
 -- ----------------------------
+INSERT INTO `identity_card` VALUES ('121573613', '2018-08-09 17:06:10', '2018-08-22 08:59:35', '西虹市公安局', '5');
+INSERT INTO `identity_card` VALUES ('172332596', '2018-08-09 13:59:02', '2018-08-22 05:52:27', '西虹市公安局', '4');
+INSERT INTO `identity_card` VALUES ('405941979', '2018-08-09 13:59:01', '2018-08-22 05:52:26', '西虹市公安局', '3');
 
 -- ----------------------------
 -- Table structure for sys_user

@@ -1,5 +1,6 @@
 package com.zgc.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -12,19 +13,18 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "identity_card")
 public class IdentityCard {
-    private Integer id;
+    private String id;
     private Timestamp made_time;//制卡时间
     private Timestamp validity_period;//有效期
     private String made_address;//制卡地点
     private Citizen citizen;//公民，和身份证是一对一关系
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,11 +52,25 @@ public class IdentityCard {
         this.made_address = made_address;
     }
 
+    @OneToOne(targetEntity = Citizen.class)
+    @JoinColumn(name = "citizen_id")
+    @JSONField(serialize = false)
     public Citizen getCitizen() {
         return citizen;
     }
 
     public void setCitizen(Citizen citizen) {
+        this.citizen = citizen;
+    }
+
+    public IdentityCard() {
+    }
+
+    public IdentityCard(String id,Timestamp made_time, Timestamp validity_period, String made_address, Citizen citizen) {
+        this.id = id;
+        this.made_time = made_time;
+        this.validity_period = validity_period;
+        this.made_address = made_address;
         this.citizen = citizen;
     }
 }

@@ -1,6 +1,7 @@
 package com.base.action;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -78,6 +79,24 @@ public abstract class BaseAction<T> extends ActionSupport implements ServletRequ
 
     public void  writeJson(Object object){
         String json = JSON.toJSONString(object);
+        System.out.print(json);
+        HttpServletResponse response = getHttpServletResponse();
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            out.print(json);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            out.close();
+        }
+    }
+
+    public void  writeJsonNofer(Object object){
+        String json = JSON.toJSONString(object,SerializerFeature.DisableCircularReferenceDetect);
         System.out.print(json);
         HttpServletResponse response = getHttpServletResponse();
         response.setCharacterEncoding("utf-8");

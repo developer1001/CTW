@@ -1,11 +1,15 @@
 package com.base.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -173,6 +177,111 @@ public  class BaseDao<T> {
             session.close();
         }
         return result;
+    }
 
+    /**
+     * 根据id查询一个对象
+     * @param entityClass
+     * @param id
+     * @return
+     */
+    public T findById(Class<T> entityClass,int id){
+        Session session =  seesionFactory.openSession();
+        T entity = null;
+        String hql = "From "+entityClass.getSimpleName()+ " where id="+id;
+        try {
+            entity = (T) session.createQuery(hql).uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return entity;
+    }
+
+    /**
+     * 根据id查询一个对象
+     * @param entityClass
+     * @param id
+     * @return
+     */
+    public T findById(Class<T> entityClass,String id){
+        Session session =  seesionFactory.openSession();
+        T entity = null;
+        String hql = "From "+entityClass.getSimpleName()+ " where id='"+id+"'";
+        try {
+            entity = (T) session.createQuery(hql).uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return entity;
+    }
+
+    /**
+     * 查询所有的对象
+     * @param entityClass 实体对象所属类
+     * @return
+     */
+    public List<T> findAll(Class<T> entityClass){
+        Session session =  seesionFactory.openSession();
+        List<T> entity = null;
+        String hql = "From "+entityClass.getSimpleName();
+        try {
+            entity = session.createQuery(hql).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return entity;
+    }
+
+
+    /**
+     * 根据id删除一个对象
+     * @param entityClass
+     * @return
+     */
+    public int deleteById(Class<T> entityClass,Serializable id){
+//        Session session =  seesionFactory.openSession();
+        String hql = "delete From "+entityClass.getSimpleName()+" where id= :id";
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        int flag = 1;
+//        try {
+//            flag = session.createQuery(hql).executeUpdate();
+            flag = updateOrDel(hql,map);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            flag = -1;
+//        }
+//        finally {
+//            session.close();
+//        }
+        return flag;
+    }
+
+    /**
+     * 更新某个对象
+     * @param entityClass
+     * @param id
+     * @param map
+     * @return
+     */
+    public int updateSingleObj(Class entityClass,Serializable id,Map<String,Object> map){
+        int flag = -1;
+       if (map.size()>0){
+           StringBuilder sb = new StringBuilder();
+           for (String key:map.keySet()){
+               if (!key.equals("id"))//过滤掉ID
+                   sb.append(key+"= :"+key);
+           }
+           String hql = "update "+entityClass.getSimpleName() + " set " + sb.toString() + " where id= :id";
+           map.put("id",id);
+           flag = updateOrDel(hql,map);
+       }
+        return flag;
     }
 }

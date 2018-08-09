@@ -1,8 +1,8 @@
 package com.zgc.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * @program: CTW
@@ -17,7 +17,7 @@ public class BankCard {
     private String bank;//所属银行
     private Date made_time;//制卡时间
     private Date validity_period;//有效期至
-    private Citizen citizens;//关联的公民
+    private Citizen citizen;//关联的公民
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,11 +53,24 @@ public class BankCard {
         this.validity_period = validity_period;
     }
 
-    public Citizen getCitizens() {
-        return citizens;
+    @ManyToOne(targetEntity = Citizen.class)
+    @JoinColumn(name = "citizen_id")
+    @JSONField(serialize = false)
+    public Citizen getCitizen() {
+        return citizen;
     }
 
-    public void setCitizens(Citizen citizens) {
-        this.citizens = citizens;
+    public void setCitizen(Citizen citizen) {
+        this.citizen = citizen;
+    }
+
+    public BankCard() {
+    }
+
+    public BankCard(String bank, Date made_time, Date validity_period, Citizen citizen) {
+        this.bank = bank;
+        this.made_time = made_time;
+        this.validity_period = validity_period;
+        this.citizen = citizen;
     }
 }

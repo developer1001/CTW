@@ -1,5 +1,6 @@
 package com.base.service;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -54,4 +55,44 @@ public interface IBaseService<T> {
      * @return
      */
     public int updateOrDel(String hql, Map<String,Object> map);
+
+    /**
+     * 查询一个对象
+     * @param entityClass
+     * @param id
+     * @return
+     */
+    T findById(Class<T> entityClass,int id);
+
+    /**
+     * 查询一个对象
+     * @param entityClass
+     * @param id
+     * @return
+     */
+    T findById(Class<T> entityClass,String id);
+
+    /**
+     * 查询所有对象
+     * @param entityClass
+     * @return
+     */
+    List<T> findAll(Class<T> entityClass);
+
+    /**
+     * 删除一个对象
+     * @param entityClass
+     * @param id
+     * @return
+     */
+    int deleteById(Class<T> entityClass,Serializable id);
+
+    /**
+     * 更新一个对象
+     * @param entityClass
+     * @param id
+     * @param map
+     * @return
+     */
+    int updateSingleObj(Class entityClass,Serializable id,Map<String,Object> map);
 }

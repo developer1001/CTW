@@ -2,6 +2,8 @@ package com.zgc.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @program: CTW
@@ -17,6 +19,8 @@ public class Citizen {
     private String sex;//xx or xy
     private String address;//家庭住址
     private Date birthday;//生日
+    private Set<BankCard> bankCards = new HashSet<>();//银行卡
+    private IdentityCard identityCard;//身份证
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +62,27 @@ public class Citizen {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    @OneToMany(mappedBy = "citizen",cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    public Set<BankCard> getBankCards() {
+        return bankCards;
+    }
+
+    public void setBankCards(Set<BankCard> bankCards) {
+        this.bankCards = bankCards;
+    }
+
+    @OneToOne(mappedBy = "citizen",cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    public IdentityCard getIdentityCard() {
+        return identityCard;
+    }
+
+    public void setIdentityCard(IdentityCard identityCard) {
+        this.identityCard = identityCard;
+    }
+
+    public void addCards(BankCard bankCard){
+        bankCards.add(bankCard);
     }
 }
