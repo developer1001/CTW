@@ -70,4 +70,14 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     public int updateSingleObj(Class entityClass, Serializable id, Map<String, Object> map) {
         return getBaseDao().updateSingleObj(entityClass,id,map);
     }
+
+    @Override
+    public List<T> findByMap(Class<T> entityClass, Map<String, Object> map) {
+        return getBaseDao().findByMap(entityClass,map);
+    }
+
+    @Override
+    public long getTotalSize(Class entityClass, Map<String, Object> map) {
+        return getBaseDao().getTotalSize(entityClass,map);
+    }
 }

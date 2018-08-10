@@ -125,4 +125,17 @@ public class CitizenAction extends BaseAction<Citizen> {
             writeJson(new Json(false,"操作失败"));
         }
     }
+
+    /**
+     * 获取总数
+     * @return
+     */
+    public void getTotalSize(){
+        Map<String,Object> map = new HashMap<>();
+        if(Math.random()>0.5){
+            map.put("bank","建设银行");
+        }
+        long size = citizenService.getTotalSize(BankCard.class,map);
+        writeJson(new Json(true,size));
+    }
 }
