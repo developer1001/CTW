@@ -65,7 +65,7 @@ public  class BaseDao<T> {
         try {
             session.saveOrUpdate(t);
             session.getTransaction().commit();
-            return 1;
+            result =1;
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();

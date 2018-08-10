@@ -95,6 +95,10 @@ public abstract class BaseAction<T> extends ActionSupport implements ServletRequ
         }
     }
 
+    /**
+     * 禁止循环依赖
+     * @param object
+     */
     public void  writeJsonNofer(Object object){
         String json = JSON.toJSONString(object,SerializerFeature.DisableCircularReferenceDetect);
         System.out.print(json);

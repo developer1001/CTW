@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-08-09 17:58:14
+Date: 2018-08-10 14:43:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -64,20 +64,6 @@ INSERT INTO `citizen` VALUES ('4', 'laoyangtou', 'xy', '测试地址', '2018-08-
 INSERT INTO `citizen` VALUES ('5', 'laoyangtou', 'xy', '测试地址', '2018-08-09');
 
 -- ----------------------------
--- Table structure for group
--- ----------------------------
-DROP TABLE IF EXISTS `group`;
-CREATE TABLE `group` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL COMMENT '班级名称',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of group
--- ----------------------------
-
--- ----------------------------
 -- Table structure for identity_card
 -- ----------------------------
 DROP TABLE IF EXISTS `identity_card`;
@@ -120,16 +106,60 @@ INSERT INTO `sys_user` VALUES ('8', 'bsadmin', '1234567890', '123456');
 INSERT INTO `sys_user` VALUES ('9', '超管来了', 'super', 'e10adc3949ba59abbe56e057f20f883e');
 
 -- ----------------------------
--- Table structure for teacher
+-- Table structure for t_group
 -- ----------------------------
-DROP TABLE IF EXISTS `teacher`;
-CREATE TABLE `teacher` (
+DROP TABLE IF EXISTS `t_group`;
+CREATE TABLE `t_group` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '班级名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_group
+-- ----------------------------
+INSERT INTO `t_group` VALUES ('6', '4-52班');
+INSERT INTO `t_group` VALUES ('7', '2-69班');
+
+-- ----------------------------
+-- Table structure for t_teacher
+-- ----------------------------
+DROP TABLE IF EXISTS `t_teacher`;
+CREATE TABLE `t_teacher` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL COMMENT '姓名',
   `age` int(3) DEFAULT NULL COMMENT '年龄',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of teacher
+-- Records of t_teacher
 -- ----------------------------
+INSERT INTO `t_teacher` VALUES ('4', 'xxxxx', '26');
+INSERT INTO `t_teacher` VALUES ('5', 'xxxxx', '18');
+INSERT INTO `t_teacher` VALUES ('6', 'xxxxx', '57');
+
+-- ----------------------------
+-- Table structure for t_teacher_group
+-- ----------------------------
+DROP TABLE IF EXISTS `t_teacher_group`;
+CREATE TABLE `t_teacher_group` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `tid` int(10) NOT NULL COMMENT '教师id',
+  `gid` int(10) NOT NULL COMMENT '班级ID',
+  PRIMARY KEY (`id`),
+  KEY `FK1jekrjlsmom6xvw60urb24c1p` (`gid`),
+  KEY `FKoklpwyj0xdtnenee7u5ahyd2c` (`tid`),
+  CONSTRAINT `FK1jekrjlsmom6xvw60urb24c1p` FOREIGN KEY (`gid`) REFERENCES `t_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FKoklpwyj0xdtnenee7u5ahyd2c` FOREIGN KEY (`tid`) REFERENCES `t_teacher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_teacher_group
+-- ----------------------------
+INSERT INTO `t_teacher_group` VALUES ('5', '4', '6');
+INSERT INTO `t_teacher_group` VALUES ('6', '4', '7');
+INSERT INTO `t_teacher_group` VALUES ('8', '5', '6');
+INSERT INTO `t_teacher_group` VALUES ('9', '5', '7');
+INSERT INTO `t_teacher_group` VALUES ('11', '6', '6');
+INSERT INTO `t_teacher_group` VALUES ('12', '6', '7');
