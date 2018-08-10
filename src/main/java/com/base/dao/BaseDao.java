@@ -113,20 +113,13 @@ public  class BaseDao<T> {
 
     /**
      * 利用map占位符参数，获取查询对象的集合
-     * @param entityClass
+     * @param hql
      * @param map
      * @return
      */
-    public List<T> findByMap(Class<T> entityClass ,Map<String,Object> map){
+    public List findByHql(String hql,Map<String,Object> map){
         Session session =  seesionFactory.openSession();
-        List<T> list = null;
-        String hql = "from "+entityClass.getSimpleName() + " where 1=1 ";
-        if (map != null && map.size()>0){
-            StringBuilder sb = new StringBuilder();
-            for (String key:map.keySet()){
-                sb.append(" and " + key + " = :" + key);
-            }
-            hql += sb.toString();
+        List list = null;
             Query query = session.createQuery(hql);
             for (String key:map.keySet()){
                 query.setParameter(key,map.get(key));
@@ -138,16 +131,6 @@ public  class BaseDao<T> {
             } finally {
                 session.close();
             }
-        }
-        else{
-            try {
-                list = session.createQuery(hql).list();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                session.close();
-            }
-        }
         return list;
     }
 
@@ -326,25 +309,53 @@ public  class BaseDao<T> {
         return flag;
     }
 
+
+//    public long getTotalSize(Class entityClass ,Map<String,Object> map){
+//        Session session =  seesionFactory.openSession();
+//        long total = 0;
+//        String hql = "select count(1) from "+entityClass.getSimpleName() + " where 1=1 ";
+//        if (map != null && map.size()>0){
+//            StringBuilder sb = new StringBuilder();
+//            for (String key:map.keySet()){
+//                    sb.append(" and " + key + " = :" + key);
+//            }
+//        hql += sb.toString();
+//        Query query = session.createQuery(hql);
+//        for (String key:map.keySet()){
+//           query.setParameter(key,map.get(key));
+//        }
+//        try {
+//            total = (long)query.uniqueResult();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+//        }
+//        else{
+//            try {
+//                total = (long)session.createQuery(hql).uniqueResult();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                session.close();
+//            }
+//        }
+//        return total;
+//    }
+
     /**
-     * 获取总的数据记录条数
-     * @param entityClass
+     * 获取限定条件下记录总条数
+     * @param hql
      * @param map
      * @return
      */
-    public long getTotalSize(Class entityClass ,Map<String,Object> map){
+    public long getTotalSize(String hql,Map<String,Object> map){
         Session session =  seesionFactory.openSession();
         long total = 0;
-        String hql = "select count(1) from "+entityClass.getSimpleName() + " where 1=1 ";
-        if (map != null && map.size()>0){
-            StringBuilder sb = new StringBuilder();
-            for (String key:map.keySet()){
-                    sb.append(" and " + key + " = :" + key);
-            }
-        hql += sb.toString();
         Query query = session.createQuery(hql);
         for (String key:map.keySet()){
-           query.setParameter(key,map.get(key));
+            query.setParameter(key,map.get(key));
         }
         try {
             total = (long)query.uniqueResult();
@@ -352,16 +363,6 @@ public  class BaseDao<T> {
             e.printStackTrace();
         } finally {
             session.close();
-        }
-        }
-        else{
-            try {
-                total = (long)session.createQuery(hql).uniqueResult();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                session.close();
-            }
         }
         return total;
     }

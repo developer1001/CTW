@@ -98,17 +98,17 @@ public interface IBaseService<T> {
 
     /**
      * 利用map占位符参数，获取查询对象的集合
-     * @param entityClass
+     * @param hql
      * @param map
      * @return
      */
-    List<T> findByMap(Class<T> entityClass ,Map<String,Object> map);
+    List findByHql(String hql,Map<String,Object> map);
 
     /**
      * 获取总的数据记录条数
-     * @param entityClass
+     * @param hql
      * @param map
      * @return
      */
-    long getTotalSize(Class entityClass ,Map<String,Object> map);
+    long getTotalSize(String hql,Map<String,Object> map);
 }

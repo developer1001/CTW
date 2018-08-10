@@ -72,12 +72,12 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public List<T> findByMap(Class<T> entityClass, Map<String, Object> map) {
-        return getBaseDao().findByMap(entityClass,map);
+    public List findByHql(String hql,Map<String,Object> map) {
+        return getBaseDao().findByHql(hql,map);
     }
 
     @Override
-    public long getTotalSize(Class entityClass, Map<String, Object> map) {
-        return getBaseDao().getTotalSize(entityClass,map);
+    public long getTotalSize(String hql,Map<String,Object> map) {
+        return getBaseDao().getTotalSize(hql,map);
     }
 }

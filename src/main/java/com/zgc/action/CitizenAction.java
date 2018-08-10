@@ -79,7 +79,7 @@ public class CitizenAction extends BaseAction<Citizen> {
     }
 
     /**
-     *z查找
+     *查找
      */
     public void find(){
         try {
@@ -127,15 +127,26 @@ public class CitizenAction extends BaseAction<Citizen> {
     }
 
     /**
-     * 获取总数
+     * 获取建行卡的条数
      * @return
      */
     public void getTotalSize(){
-        Map<String,Object> map = new HashMap<>();
-        if(Math.random()>0.5){
-            map.put("bank","建设银行");
-        }
-        long size = citizenService.getTotalSize(BankCard.class,map);
+        long size = citizenService.getTotalSize();
         writeJson(new Json(true,size));
+    }
+
+    /**
+     * 获取XX银行下的所有银行卡
+     */
+    public void getCardsList(){
+        //模拟传参
+        String bank = ((Math.random()>0.5)?"建设银行":"工商银行");
+        List<BankCard> list = null;
+        try {
+            list = citizenService.findCardsList(bank);
+            writeJson(new Json(true,list));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
