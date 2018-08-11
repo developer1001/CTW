@@ -1,6 +1,7 @@
 package com.base.service.Impl;
 
 import com.base.dao.BaseDao;
+import com.base.model.PageBean;
 import com.base.service.IBaseService;
 
 import java.io.Serializable;
@@ -79,5 +80,15 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     @Override
     public long getTotalSize(String hql,Map<String,Object> map) {
         return getBaseDao().getTotalSize(hql,map);
+    }
+
+    @Override
+    public List findByPage(String hql, Map<String, Object> map, PageBean pageBean) {
+        return getBaseDao().findByPage(hql,map,pageBean);
+    }
+
+    @Override
+    public int deleteByIds(Class entityClass, String ids) {
+        return getBaseDao().deleteByIds(entityClass,ids);
     }
 }

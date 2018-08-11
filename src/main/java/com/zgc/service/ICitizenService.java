@@ -1,5 +1,6 @@
 package com.zgc.service;
 
+import com.base.model.PageBean;
 import com.base.service.IBaseService;
 import com.zgc.model.BankCard;
 import com.zgc.model.Citizen;
@@ -20,4 +21,11 @@ public interface ICitizenService extends IBaseService<Citizen> {
      * @return
      */
     List<BankCard> findCardsList(String bank);
+
+    /**
+     * 分页查询测试
+     * @param pageBean
+     * @return
+     */
+    List findByPage(PageBean pageBean);
 }

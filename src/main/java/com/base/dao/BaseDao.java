@@ -1,9 +1,7 @@
 package com.base.dao;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import com.base.model.PageBean;
+import org.hibernate.*;
 import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,8 +119,10 @@ public  class BaseDao<T> {
         Session session =  seesionFactory.openSession();
         List list = null;
             Query query = session.createQuery(hql);
-            for (String key:map.keySet()){
-                query.setParameter(key,map.get(key));
+            if (map != null && map.size() > 0){
+                for (String key:map.keySet()){
+                    query.setParameter(key,map.get(key));
+                }
             }
             try {
                 list = query.list();
@@ -188,8 +188,10 @@ public  class BaseDao<T> {
         int result = -1;
         try {
             Query query = session.createQuery(hql);
-            for (String key:map.keySet()){
-                query.setParameter(key,map.get(key));
+            if (map != null && map.size() > 0){
+                for (String key:map.keySet()){
+                    query.setParameter(key,map.get(key));
+                }
             }
             result = query.executeUpdate();
             session.getTransaction().commit();
@@ -354,8 +356,10 @@ public  class BaseDao<T> {
         Session session =  seesionFactory.openSession();
         long total = 0;
         Query query = session.createQuery(hql);
-        for (String key:map.keySet()){
-            query.setParameter(key,map.get(key));
+        if (map != null && map.size() > 0){
+            for (String key:map.keySet()){
+                query.setParameter(key,map.get(key));
+            }
         }
         try {
             total = (long)query.uniqueResult();
@@ -365,5 +369,55 @@ public  class BaseDao<T> {
             session.close();
         }
         return total;
+    }
+
+    /**
+     * 分页查询
+     * @param hql
+     * @param map
+     * @param pageBean
+     * @return
+     */
+    public List findByPage(String hql, Map<String,Object> map, PageBean pageBean){
+        List list = null;
+        Session session =  seesionFactory.openSession();
+        Query query = session.createQuery(hql);
+        if (map != null && map.size() > 0){
+            for (String key:map.keySet()){
+                query.setParameter(key,map.get(key));
+            }
+        }
+        //得到滚动结果集
+        ScrollableResults scroll = query.scroll();
+        //滚动到最后一行
+        scroll.last();
+        //总记录条数
+        int total = scroll.getRowNumber() + 1;
+        //设置分页位置
+        int start = (pageBean.getExpectPage()-1) * pageBean.getPerPage();
+        query.setFirstResult(start);
+        query.setMaxResults(pageBean.getPerPage());
+        try {
+            list = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
+    /**
+     * 批量删除(只针对id为整型的情况)    23,45,78,54,21
+     * @param entityClass
+     * @param ids
+     * @return
+     */
+    public int deleteByIds(Class entityClass,String ids){
+        ids = (ids.charAt(ids.length()-1) == ',' ? ids.substring(0,ids.length()-1) : ids);
+        String hql = "delete From "+entityClass.getSimpleName()+" where id in (" + ids + ")";
+        int flag = 1;
+        flag = executeByHql(hql);
+        return flag;
     }
 }

@@ -1,5 +1,7 @@
 package com.base.service;
 
+import com.base.model.PageBean;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -111,4 +113,21 @@ public interface IBaseService<T> {
      * @return
      */
     long getTotalSize(String hql,Map<String,Object> map);
+
+    /**
+     * 分页查询
+     * @param hql
+     * @param map
+     * @param pageBean
+     * @return
+     */
+    List findByPage(String hql, Map<String,Object> map, PageBean pageBean);
+
+    /**
+     * 批量删除(只针对id为整型的情况)    23,45,78,54,21
+     * @param entityClass
+     * @param ids
+     * @return
+     */
+    int deleteByIds(Class entityClass,String ids);
 }

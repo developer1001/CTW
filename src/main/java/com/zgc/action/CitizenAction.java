@@ -149,4 +149,27 @@ public class CitizenAction extends BaseAction<Citizen> {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 批量删除测试
+     * ids:例如：25,45,78,98
+     */
+    public void deleteByIds(){
+        int flag = citizenService.deleteByIds(BankCard.class,ids);
+        if (flag > 0)
+            writeJson(new Json(true,"success"));
+        else
+            writeJson(new Json(false,"error"));
+    }
+
+    /**
+     * 分页查询测试
+     */
+    public void findByPage(){
+        List<BankCard> list = citizenService.findByPage(pageBean);
+        if (list == null)
+            writeJson(new Json(false,list));
+        else
+            writeJson(new Json(true,list));
+    }
 }

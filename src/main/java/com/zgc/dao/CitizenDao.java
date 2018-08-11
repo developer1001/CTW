@@ -1,6 +1,7 @@
 package com.zgc.dao;
 
 import com.base.dao.BaseDao;
+import com.base.model.PageBean;
 import com.zgc.model.BankCard;
 import com.zgc.model.Citizen;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,15 @@ public class CitizenDao extends BaseDao<Citizen> {
         Map<String,Object> map = new HashMap<>();
         map.put("bank",bank);
         return findByHql(hql,map);
+    }
+
+    /**
+     * 分页查询测试
+     * @param pageBean
+     * @return
+     */
+    public List findByPage(PageBean pageBean){
+        String hql = "From BankCard ";
+        return findByPage(hql,null,pageBean);
     }
 }

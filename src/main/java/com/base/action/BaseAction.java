@@ -2,6 +2,7 @@ package com.base.action;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.base.model.PageBean;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -22,6 +23,8 @@ public abstract class BaseAction<T> extends ActionSupport implements ServletRequ
     protected String ids;
     //接收一个实体对象
     protected T baseEntity;
+    //接收一个page对象
+    protected PageBean pageBean;
 
     protected HttpServletRequest httpServletRequest;
     protected HttpServletResponse httpServletResponse;
@@ -75,6 +78,14 @@ public abstract class BaseAction<T> extends ActionSupport implements ServletRequ
 
     public void setBaseEntity(T baseEntity) {
         this.baseEntity = baseEntity;
+    }
+
+    public PageBean getPageBean() {
+        return pageBean;
+    }
+
+    public void setPageBean(PageBean pageBean) {
+        this.pageBean = pageBean;
     }
 
     public void  writeJson(Object object){

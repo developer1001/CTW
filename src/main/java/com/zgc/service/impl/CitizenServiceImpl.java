@@ -1,6 +1,7 @@
 package com.zgc.service.impl;
 
 import com.base.dao.BaseDao;
+import com.base.model.PageBean;
 import com.base.service.Impl.BaseServiceImpl;
 import com.zgc.dao.CitizenDao;
 import com.zgc.model.BankCard;
@@ -36,5 +37,10 @@ public class CitizenServiceImpl extends BaseServiceImpl<Citizen> implements ICit
     @Override
     public List<BankCard> findCardsList(String bank) {
         return citizenDao.getCardsList(bank);
+    }
+
+    @Override
+    public List findByPage(PageBean pageBean) {
+        return citizenDao.findByPage(pageBean);
     }
 }
