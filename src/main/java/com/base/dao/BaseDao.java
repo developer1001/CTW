@@ -2,11 +2,11 @@ package com.base.dao;
 
 import com.base.model.PageBean;
 import org.hibernate.*;
-import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +15,18 @@ public  class BaseDao<T> {
     @Autowired
     SessionFactory seesionFactory;
 
+    Class<T> clazz;
+
+    @SuppressWarnings("unchecked")
+    public BaseDao(){
+        //获取当前运行的父类的参数化类型
+        Type type = this.getClass().getGenericSuperclass();
+        //转换为参数化类型
+        ParameterizedType pt =(ParameterizedType)type;
+        //得到实际类型
+        Type[] types = pt.getActualTypeArguments();
+        clazz = (Class<T>) types[0];
+    }
     /**
      *
      * @return SessionFactory
@@ -110,14 +122,14 @@ public  class BaseDao<T> {
     }
 
     /**
-     * 利用map占位符参数，获取查询对象的集合
+     * 利用map和hql命名参数，获取查询对象的集合
      * @param hql
      * @param map
      * @return
      */
     public List findByHql(String hql,Map<String,Object> map){
-        Session session =  seesionFactory.openSession();
-        List list = null;
+         Session session =  seesionFactory.openSession();
+         List list = null;
             Query query = session.createQuery(hql);
             if (map != null && map.size() > 0){
                 for (String key:map.keySet()){
@@ -246,13 +258,12 @@ public  class BaseDao<T> {
 
     /**
      * 查询所有的对象
-     * @param entityClass 实体对象所属类
      * @return
      */
-    public List<T> findAll(Class<T> entityClass){
+    public List<T> findAll(){
         Session session =  seesionFactory.openSession();
         List<T> entity = null;
-        String hql = "From "+entityClass.getSimpleName();
+        String hql = "From "+clazz.getSimpleName();
         try {
             entity = session.createQuery(hql).list();
         } catch (Exception e) {
@@ -379,6 +390,8 @@ public  class BaseDao<T> {
      * @return
      */
     public List findByPage(String hql, Map<String,Object> map, PageBean pageBean){
+        if (pageBean == null)
+            pageBean = new PageBean();
         List list = null;
         Session session =  seesionFactory.openSession();
         Query query = session.createQuery(hql);
@@ -418,6 +431,25 @@ public  class BaseDao<T> {
         String hql = "delete From "+entityClass.getSimpleName()+" where id in (" + ids + ")";
         int flag = 1;
         flag = executeByHql(hql);
+        return flag;
+    }
+
+    /**
+     * 删除一个对象
+     * @param t
+     * @return
+     */
+    public int delete(T t){
+        Session session = seesionFactory.openSession();
+        int flag = 1;
+        try {
+            session.delete(t);
+        } catch (Exception e) {
+            e.printStackTrace();
+            flag = -1;
+        } finally {
+            session.close();
+        }
         return flag;
     }
 }

@@ -58,8 +58,8 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public List<T> findAll(Class<T> entityClass) {
-        return getBaseDao().findAll(entityClass);
+    public List<T> findAll() {
+        return getBaseDao().findAll();
     }
 
     @Override
@@ -90,5 +90,10 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     @Override
     public int deleteByIds(Class entityClass, String ids) {
         return getBaseDao().deleteByIds(entityClass,ids);
+    }
+
+    @Override
+    public int delete(T t) {
+        return getBaseDao().delete(t);
     }
 }

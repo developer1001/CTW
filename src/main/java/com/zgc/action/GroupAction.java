@@ -107,7 +107,7 @@ public class GroupAction extends BaseAction<Group> {
      */
     public void findAll(){
         try {
-            List<Group> groups = groupService.findAll(Group.class);
+            List<Group> groups = groupService.findAll();
             writeJsonNofer(new Json(true,groups));
         } catch (Exception e) {
             e.printStackTrace();

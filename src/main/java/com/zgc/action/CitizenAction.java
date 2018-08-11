@@ -91,11 +91,11 @@ public class CitizenAction extends BaseAction<Citizen> {
     }
 
     /**
-     *z查找所有
+     *查找所有
      */
     public void findAll(){
         try {
-            List<Citizen> citizens = citizenService.findAll(Citizen.class);
+            List<Citizen> citizens = citizenService.findAll();
             writeJsonNofer(new Json(true,citizens));
         } catch (Exception e) {
             e.printStackTrace();

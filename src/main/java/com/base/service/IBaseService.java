@@ -76,10 +76,9 @@ public interface IBaseService<T> {
 
     /**
      * 查询所有对象
-     * @param entityClass
      * @return
      */
-    List<T> findAll(Class<T> entityClass);
+    List<T> findAll();
 
     /**
      * 删除一个对象
@@ -130,4 +129,11 @@ public interface IBaseService<T> {
      * @return
      */
     int deleteByIds(Class entityClass,String ids);
+
+    /**
+     * 删除一个对象
+     * @param t
+     * @return
+     */
+    int delete(T t);
 }
