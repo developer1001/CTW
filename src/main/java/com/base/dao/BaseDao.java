@@ -218,14 +218,13 @@ public  class BaseDao<T> {
 
     /**
      * 根据id查询一个对象
-     * @param entityClass
      * @param id
      * @return
      */
-    public T findById(Class<T> entityClass,int id){
+    public T findById(int id){
         Session session =  seesionFactory.openSession();
         T entity = null;
-        String hql = "From "+entityClass.getSimpleName()+ " where id="+id;
+        String hql = "From "+clazz.getSimpleName()+ " where id="+id;
         try {
             entity = (T) session.createQuery(hql).uniqueResult();
         } catch (Exception e) {
@@ -238,14 +237,13 @@ public  class BaseDao<T> {
 
     /**
      * 根据id查询一个对象
-     * @param entityClass
      * @param id
      * @return
      */
-    public T findById(Class<T> entityClass,String id){
+    public T findById(String id){
         Session session =  seesionFactory.openSession();
         T entity = null;
-        String hql = "From "+entityClass.getSimpleName()+ " where id='"+id+"'";
+        String hql = "From "+clazz.getSimpleName()+ " where id='"+id+"'";
         try {
             entity = (T) session.createQuery(hql).uniqueResult();
         } catch (Exception e) {
@@ -277,12 +275,11 @@ public  class BaseDao<T> {
 
     /**
      * 根据id删除一个对象
-     * @param entityClass
      * @return
      */
-    public int deleteById(Class<T> entityClass,Serializable id){
+    public int deleteById(Serializable id){
 //        Session session =  seesionFactory.openSession();
-        String hql = "delete From "+entityClass.getSimpleName()+" where id= :id";
+        String hql = "delete From "+clazz.getSimpleName()+" where id= :id";
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);
         int flag = 1;
@@ -422,13 +419,12 @@ public  class BaseDao<T> {
 
     /**
      * 批量删除(只针对id为整型的情况)    23,45,78,54,21
-     * @param entityClass
      * @param ids
      * @return
      */
-    public int deleteByIds(Class entityClass,String ids){
+    public int deleteByIds(String ids){
         ids = (ids.charAt(ids.length()-1) == ',' ? ids.substring(0,ids.length()-1) : ids);
-        String hql = "delete From "+entityClass.getSimpleName()+" where id in (" + ids + ")";
+        String hql = "delete From "+clazz.getSimpleName()+" where id in (" + ids + ")";
         int flag = 1;
         flag = executeByHql(hql);
         return flag;

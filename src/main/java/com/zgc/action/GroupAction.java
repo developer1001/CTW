@@ -82,7 +82,7 @@ public class GroupAction extends BaseAction<Group> {
      */
     public void delete(){
         try {
-            groupService.deleteById(Group.class,id);
+            groupService.deleteById(id);
             writeJson(new Json(true,"操作成功"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class GroupAction extends BaseAction<Group> {
      */
     public void find(){
         try {
-            Group group = groupService.findById(Group.class,id);
+            Group group = groupService.findById(id);
             writeJsonNofer(new Json(true,group));
         } catch (Exception e) {
             e.printStackTrace();

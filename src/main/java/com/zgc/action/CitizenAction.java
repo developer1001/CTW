@@ -70,7 +70,7 @@ public class CitizenAction extends BaseAction<Citizen> {
 //        map.put("id",id);
         try {
 //            citizenService.updateOrDel(hql,map);
-            citizenService.deleteById(Citizen.class,id);
+            citizenService.deleteById(id);
             writeJson(new Json(true,"操作成功"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class CitizenAction extends BaseAction<Citizen> {
      */
     public void find(){
         try {
-           Citizen citizen = citizenService.findById(Citizen.class,id);
+           Citizen citizen = citizenService.findById(id);
             writeJson(new Json(true,citizen));
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,7 +155,7 @@ public class CitizenAction extends BaseAction<Citizen> {
      * ids:例如：25,45,78,98
      */
     public void deleteByIds(){
-        int flag = citizenService.deleteByIds(BankCard.class,ids);
+        int flag = citizenService.deleteByIds(ids);
         if (flag > 0)
             writeJson(new Json(true,"success"));
         else

@@ -48,13 +48,13 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public T findById(Class<T> entityClass, int id) {
-        return getBaseDao().findById(entityClass,id);
+    public T findById(int id) {
+        return getBaseDao().findById(id);
     }
 
     @Override
-    public T findById(Class<T> entityClass, String id) {
-        return getBaseDao().findById(entityClass,id);
+    public T findById(String id) {
+        return getBaseDao().findById(id);
     }
 
     @Override
@@ -63,8 +63,8 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public int deleteById(Class<T> entityClass, Serializable id) {
-        return getBaseDao().deleteById(entityClass,id);
+    public int deleteById(Serializable id) {
+        return getBaseDao().deleteById(id);
     }
 
     @Override
@@ -88,8 +88,8 @@ public abstract  class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public int deleteByIds(Class entityClass, String ids) {
-        return getBaseDao().deleteByIds(entityClass,ids);
+    public int deleteByIds(String ids) {
+        return getBaseDao().deleteByIds(ids);
     }
 
     @Override

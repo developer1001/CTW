@@ -60,19 +60,17 @@ public interface IBaseService<T> {
 
     /**
      * 查询一个对象
-     * @param entityClass
      * @param id
      * @return
      */
-    T findById(Class<T> entityClass,int id);
+    T findById(int id);
 
     /**
      * 查询一个对象
-     * @param entityClass
      * @param id
      * @return
      */
-    T findById(Class<T> entityClass,String id);
+    T findById(String id);
 
     /**
      * 查询所有对象
@@ -82,11 +80,10 @@ public interface IBaseService<T> {
 
     /**
      * 删除一个对象
-     * @param entityClass
      * @param id
      * @return
      */
-    int deleteById(Class<T> entityClass,Serializable id);
+    int deleteById(Serializable id);
 
     /**
      * 更新一个对象
@@ -124,11 +121,10 @@ public interface IBaseService<T> {
 
     /**
      * 批量删除(只针对id为整型的情况)    23,45,78,54,21
-     * @param entityClass
      * @param ids
      * @return
      */
-    int deleteByIds(Class entityClass,String ids);
+    int deleteByIds(String ids);
 
     /**
      * 删除一个对象
