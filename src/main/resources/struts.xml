@@ -32,6 +32,8 @@
     <!-- 默认后缀名 ,所有匹配*.do的请求都由struts2处理-->
     <constant name="struts.action.extension" value="do" />
 
+    <constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true" />
+
     <constant name="struts.convention.default.parent.package" value="default" />
     <package name="default" extends="struts-default" namespace="/" strict-method-invocation="false">
         <global-allowed-methods>regex:.*</global-allowed-methods>
