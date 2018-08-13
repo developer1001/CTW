@@ -82,5 +82,6 @@
     <!--</aop:config>-->
     <!-- 使用annotation定义事务 -->
     <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />-->
-
+    <!-- 启用AspectJ自动代理 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-08-10 14:43:10
+Date: 2018-08-13 16:54:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `bank_card` (
   PRIMARY KEY (`id`),
   KEY `FK4o3pe71gc9fuxe691mbcdn0nw` (`citizen_id`),
   CONSTRAINT `FK4o3pe71gc9fuxe691mbcdn0nw` FOREIGN KEY (`citizen_id`) REFERENCES `citizen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bank_card
@@ -42,6 +42,27 @@ INSERT INTO `bank_card` VALUES ('12', '人民银行', '2018-08-09', '2018-08-22'
 INSERT INTO `bank_card` VALUES ('13', '工商银行', '2018-08-09', '2018-08-22', '5');
 INSERT INTO `bank_card` VALUES ('14', '人民银行', '2018-08-09', '2018-08-22', '5');
 INSERT INTO `bank_card` VALUES ('15', '建设银行', '2018-08-09', '2018-08-22', '5');
+INSERT INTO `bank_card` VALUES ('19', '建设银行', '2018-08-10', '2018-08-23', '7');
+INSERT INTO `bank_card` VALUES ('20', '工商银行', '2018-08-10', '2018-08-23', '7');
+INSERT INTO `bank_card` VALUES ('21', '人民银行', '2018-08-10', '2018-08-23', '7');
+INSERT INTO `bank_card` VALUES ('22', '建设银行', '2018-08-10', '2018-08-23', '8');
+INSERT INTO `bank_card` VALUES ('23', '工商银行', '2018-08-10', '2018-08-23', '8');
+INSERT INTO `bank_card` VALUES ('24', '人民银行', '2018-08-10', '2018-08-23', '8');
+INSERT INTO `bank_card` VALUES ('25', '人民银行', '2018-08-10', '2018-08-23', '9');
+INSERT INTO `bank_card` VALUES ('26', '工商银行', '2018-08-10', '2018-08-23', '9');
+INSERT INTO `bank_card` VALUES ('27', '建设银行', '2018-08-10', '2018-08-23', '9');
+INSERT INTO `bank_card` VALUES ('28', '工商银行', '2018-08-10', '2018-08-23', '10');
+INSERT INTO `bank_card` VALUES ('29', '建设银行', '2018-08-10', '2018-08-23', '10');
+INSERT INTO `bank_card` VALUES ('30', '人民银行', '2018-08-10', '2018-08-23', '10');
+INSERT INTO `bank_card` VALUES ('31', '人民银行', '2018-08-10', '2018-08-23', '11');
+INSERT INTO `bank_card` VALUES ('32', '工商银行', '2018-08-10', '2018-08-23', '11');
+INSERT INTO `bank_card` VALUES ('33', '建设银行', '2018-08-10', '2018-08-23', '11');
+INSERT INTO `bank_card` VALUES ('34', '建设银行', '2018-08-10', '2018-08-23', '12');
+INSERT INTO `bank_card` VALUES ('35', '工商银行', '2018-08-10', '2018-08-23', '12');
+INSERT INTO `bank_card` VALUES ('36', '人民银行', '2018-08-10', '2018-08-23', '12');
+INSERT INTO `bank_card` VALUES ('37', '工商银行', '2018-08-10', '2018-08-23', '13');
+INSERT INTO `bank_card` VALUES ('38', '人民银行', '2018-08-10', '2018-08-23', '13');
+INSERT INTO `bank_card` VALUES ('39', '建设银行', '2018-08-10', '2018-08-23', '13');
 
 -- ----------------------------
 -- Table structure for citizen
@@ -54,7 +75,7 @@ CREATE TABLE `citizen` (
   `address` varchar(50) DEFAULT NULL COMMENT '家庭地址',
   `birthday` date DEFAULT NULL COMMENT '生日',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of citizen
@@ -62,6 +83,13 @@ CREATE TABLE `citizen` (
 INSERT INTO `citizen` VALUES ('3', 'laoyangtou', 'xy', '测试地址', '2018-08-09');
 INSERT INTO `citizen` VALUES ('4', 'laoyangtou', 'xy', '测试地址', '2018-08-09');
 INSERT INTO `citizen` VALUES ('5', 'laoyangtou', 'xy', '测试地址', '2018-08-09');
+INSERT INTO `citizen` VALUES ('7', 'laoyangtou', 'xy', '测试地址', '2018-08-10');
+INSERT INTO `citizen` VALUES ('8', 'laoyangtou', 'xy', '测试地址', '2018-08-10');
+INSERT INTO `citizen` VALUES ('9', 'laoyangtou', 'xy', '测试地址', '2018-08-10');
+INSERT INTO `citizen` VALUES ('10', 'laoyangtou', 'xy', '测试地址', '2018-08-10');
+INSERT INTO `citizen` VALUES ('11', 'laoyangtou', 'xy', '测试地址', '2018-08-10');
+INSERT INTO `citizen` VALUES ('12', 'laoyangtou', 'xy', '测试地址', '2018-08-10');
+INSERT INTO `citizen` VALUES ('13', 'laoyangtou', 'xy', '测试地址', '2018-08-10');
 
 -- ----------------------------
 -- Table structure for identity_card
@@ -82,8 +110,15 @@ CREATE TABLE `identity_card` (
 -- Records of identity_card
 -- ----------------------------
 INSERT INTO `identity_card` VALUES ('121573613', '2018-08-09 17:06:10', '2018-08-22 08:59:35', '西虹市公安局', '5');
+INSERT INTO `identity_card` VALUES ('148776102', '2018-08-10 16:43:40', '2018-08-23 08:37:05', '西虹市公安局', '9');
 INSERT INTO `identity_card` VALUES ('172332596', '2018-08-09 13:59:02', '2018-08-22 05:52:27', '西虹市公安局', '4');
+INSERT INTO `identity_card` VALUES ('182458056', '2018-08-10 16:43:46', '2018-08-23 08:37:11', '西虹市公安局', '13');
+INSERT INTO `identity_card` VALUES ('203034304', '2018-08-10 16:43:38', '2018-08-23 08:37:03', '西虹市公安局', '8');
+INSERT INTO `identity_card` VALUES ('267745228', '2018-08-10 16:43:45', '2018-08-23 08:37:09', '西虹市公安局', '12');
+INSERT INTO `identity_card` VALUES ('38654185', '2018-08-10 16:43:43', '2018-08-23 08:37:08', '西虹市公安局', '11');
 INSERT INTO `identity_card` VALUES ('405941979', '2018-08-09 13:59:01', '2018-08-22 05:52:26', '西虹市公安局', '3');
+INSERT INTO `identity_card` VALUES ('44904746', '2018-08-10 16:43:35', '2018-08-23 08:36:59', '西虹市公安局', '7');
+INSERT INTO `identity_card` VALUES ('460946839', '2018-08-10 16:43:42', '2018-08-23 08:37:06', '西虹市公安局', '10');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -120,6 +155,30 @@ CREATE TABLE `t_group` (
 -- ----------------------------
 INSERT INTO `t_group` VALUES ('6', '4-52班');
 INSERT INTO `t_group` VALUES ('7', '2-69班');
+
+-- ----------------------------
+-- Table structure for t_syslog
+-- ----------------------------
+DROP TABLE IF EXISTS `t_syslog`;
+CREATE TABLE `t_syslog` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) DEFAULT NULL COMMENT '登录用户主键id',
+  `time` datetime DEFAULT NULL COMMENT '操作时间',
+  `method` varchar(100) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL COMMENT '执行的细节',
+  `ip` varchar(50) DEFAULT NULL COMMENT '操作IP',
+  `broswer` varchar(200) DEFAULT NULL COMMENT '浏览器类型',
+  `os` varchar(50) DEFAULT NULL COMMENT '操作系统',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_syslog
+-- ----------------------------
+INSERT INTO `t_syslog` VALUES ('1', '1', '2018-08-13 16:02:52', 'com.zgc.action.UserAction.findAllUser().(find)查找:', '查找所有用户', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', null);
+INSERT INTO `t_syslog` VALUES ('2', '1', '2018-08-13 16:08:55', 'com.zgc.action.UserAction.findAllUser().(find)查找:', '查找所有用户', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', null);
+INSERT INTO `t_syslog` VALUES ('3', '1', '2018-08-13 16:17:05', 'com.zgc.action.UserAction.findAllUser().(find)查找:', '查找所有用户', '127.0.0.1', 'Windows --- Chrome-67.0.3396.99', 'Windows 10');
+INSERT INTO `t_syslog` VALUES ('4', '1', '2018-08-13 16:18:58', 'com.zgc.action.UserAction.findAllUser().(find)查找:', '查找所有用户', '127.0.0.1', 'Windows --- Chrome-67.0.3396.99', 'Windows 10');
 
 -- ----------------------------
 -- Table structure for t_teacher

@@ -1,6 +1,7 @@
 package com.zgc.action;
 
 import com.base.action.BaseAction;
+import com.base.annotation.Log;
 import com.base.model.Json;
 import com.base.util.MD5;
 import com.zgc.model.User;
@@ -62,6 +63,7 @@ public class UserAction extends BaseAction<User> {
     /**
      * 查找所有的用户
      */
+//    @Log(operationType="(find)查找:",operationName="查找所有用户")
     public void findAllUser(){
         //hql语句本不该出现在Action这里的,这里为了省事，暂时这样处理。service和dao继承base类之后，
         //没必要再自己重写最基本业务。后期有特殊业务需求下的service方法和Dao方法后，最好是把相应的hql语句定义在dao层，符合
