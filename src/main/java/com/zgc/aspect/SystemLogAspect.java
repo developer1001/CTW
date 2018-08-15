@@ -12,11 +12,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
 /**
@@ -25,14 +21,14 @@ import java.lang.reflect.Method;
  * @author: laoyangtou
  * @create: 2018-08-13 14:17
  **/
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class SystemLogAspect {
     @Autowired
     ISysLogService sysLogService;
 
     // 第一个*表示匹配任意的方法返回值，第二个*表示所有类,第三个*表示所有方法，
-    // 第一个..表示service包及其子包,第二个..表示方法的任意参数个数
+    // 第一个..表示action包及其子包,第二个..表示方法的任意参数个数
     @Pointcut("execution (* com.zgc.action..*.*(..))")
     public  void Aspect1() {
     }
@@ -79,24 +75,25 @@ public class SystemLogAspect {
         try {
             String targetName = joinPoint.getTarget().getClass().getName();
             String methodName = joinPoint.getSignature().getName();
-            Object[] arguments = joinPoint.getArgs();
-            Class targetClass = Class.forName(targetName);
+//            Object[] arguments = joinPoint.getArgs();
+            Class  targetClass = Class.forName(targetName);
             Method[] methods = targetClass.getMethods();
             String operationType = "";
             String operationName = "";
             for (Method method : methods) {
                 if (method.getName().equals(methodName)) {
-                    Class[] clazzs = method.getParameterTypes();
-                    if (clazzs.length == arguments.length) {
+//                    Class[] clazzs = method.getParameterTypes();
+//                    if (clazzs.length == arguments.length) {
                         operationType = method.getAnnotation(Log.class).operationType();
                         operationName = method.getAnnotation(Log.class).operationName();
                         break;
-                    }
+//                    }
                 }
             }
             //*========控制台输出=========*//
             System.out.println("=====后置通知开始=====");
-            System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()")+"."+operationType);
+            System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." +
+                    joinPoint.getSignature().getName() + "()")+"."+operationType);
             System.out.println("方法描述:" + operationName);
             System.out.println("请求人id:" + user.getId());
             System.out.println("请求IP:" + ip);
@@ -189,7 +186,7 @@ public class SystemLogAspect {
         }
         /*==========记录本地异常日志==========*/
        System.out.println("异常方法:{}异常代码:{}异常信息:{}参数:{}"+joinPoint.getTarget().getClass().getName()
-               + joinPoint.getSignature().getName()+e.getClass().getName()+e.getMessage()+params);
+               +"  "+ joinPoint.getSignature().getName() + "  " + e.getClass().getName() +  "  " + e.getMessage()+params);
 
     }
 }
