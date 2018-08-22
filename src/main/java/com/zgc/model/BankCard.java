@@ -2,6 +2,7 @@ package com.zgc.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -12,7 +13,8 @@ import java.sql.Date;
  **/
 @Entity
 @Table(name = "bank_card")
-public class BankCard {
+public class BankCard implements Serializable {
+    private static final long serialVersionUID = 8651486755509665806L;
     private Integer id;
     private String bank;//所属银行
     private Date made_time;//制卡时间

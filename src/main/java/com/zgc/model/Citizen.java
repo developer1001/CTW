@@ -3,6 +3,7 @@ package com.zgc.model;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,8 @@ import java.util.Set;
  **/
 @Entity
 @Table(name = "citizen")
-public class Citizen {
+public class Citizen implements Serializable {
+    private static final long serialVersionUID = 4521987946419945301L;
     private Integer id;//
     private String name;//姓名
     private String sex;//xx or xy

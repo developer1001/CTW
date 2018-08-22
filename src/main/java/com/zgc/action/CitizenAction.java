@@ -93,6 +93,7 @@ public class CitizenAction extends BaseAction<Citizen> {
     /**
      *查找所有
      */
+
     public void findAll(){
         try {
             List<Citizen> citizens = citizenService.findAll();

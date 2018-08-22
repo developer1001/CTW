@@ -1,6 +1,7 @@
 package com.zgc.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +13,9 @@ import java.util.Set;
  **/
 @Entity
 @Table(name = "t_group")
-public class Group {
+public class Group implements Serializable {
 
+    private static final long serialVersionUID = -1171303416428241802L;
     private Integer id;//
     private String name;//班级名称
     private Set<Teacher> teachers = new HashSet<>();//教师集合

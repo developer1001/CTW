@@ -1,6 +1,7 @@
 package com.zgc.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @program: CTW
@@ -10,7 +11,8 @@ import javax.persistence.*;
  **/
 @Entity
 @Table(name = "sys_user")
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = -2980111559097070230L;
     private int id;
     private String userName;
     private String loginName;

@@ -1,6 +1,7 @@
 package com.zgc.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -12,7 +13,8 @@ import java.util.Date;
  **/
 @Entity
 @Table(name = "t_syslog")
-public class SysLog {
+public class SysLog implements Serializable {
+    private static final long serialVersionUID = -9125833859668088905L;
     private Integer id;
     private Integer user_id;
     private Timestamp time = new Timestamp(new Date().getTime());

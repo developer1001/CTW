@@ -2,6 +2,7 @@ package com.zgc.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -12,7 +13,8 @@ import java.sql.Timestamp;
  **/
 @Entity
 @Table(name = "identity_card")
-public class IdentityCard {
+public class IdentityCard implements Serializable {
+    private static final long serialVersionUID = 3633180573744759774L;
     private String id;
     private Timestamp made_time;//制卡时间
     private Timestamp validity_period;//有效期
