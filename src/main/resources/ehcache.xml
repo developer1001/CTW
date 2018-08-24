@@ -24,4 +24,7 @@
     访问磁盘线程活动时间。 diskSpoolBufferSizeMB: 存入磁盘时的缓冲区大小，默认30MB,每个缓存都有自己的缓冲区。 memoryStoreEvictionPolicy:
     元素逐出缓存规则。共有三种，Recently Used (LRU)最近最少使用，为默认。 First In First Out (FIFO)，先进先出。Less
     Frequently Used(specified as LFU)最少使用 -->
+    <!--@Cacheable 一般应用到查询方法上，先从缓存中读取数据，若缓存中没有，再调用该方法获取数据，然后将数据结果放入缓存中。-->
+    <!--@CacheEvict 一般应用到删除方法上，调用方法时会从缓存中移除相应的数据。-->
+    <!--@CachePut 一般应用到新增/修改方法上，每次都会执行方法，并且把执行结果放入缓存。-->
 </ehcache>
