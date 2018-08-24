@@ -10,9 +10,9 @@
                   memoryStoreEvictionPolicy="LRU" />
 
     <cache name="baseCache" maxElementsInMemory="10000" eternal="false"
-           timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+           timeToIdleSeconds="20" timeToLiveSeconds="20" overflowToDisk="true"
            diskSpoolBufferSizeMB="30" maxElementsOnDisk="10000000"
-           diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+           diskPersistent="false" diskExpiryThreadIntervalSeconds="20"
            memoryStoreEvictionPolicy="LFU" />
 
 <!-- 1.必须要有的属性： name: cache的名字，用来识别不同的cache，必须惟一。 maxElementsInMemory: 内存管理的缓存元素数量最大限值。
