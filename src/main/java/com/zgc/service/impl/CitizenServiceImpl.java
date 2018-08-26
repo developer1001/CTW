@@ -8,6 +8,8 @@ import com.zgc.model.BankCard;
 import com.zgc.model.Citizen;
 import com.zgc.service.ICitizenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.List;
  * @create: 2018-08-08 16:44
  **/
 @Service
+@CacheConfig(cacheNames = "baseCache")
 public class CitizenServiceImpl extends BaseServiceImpl<Citizen> implements ICitizenService {
 
     @Autowired
@@ -30,6 +33,7 @@ public class CitizenServiceImpl extends BaseServiceImpl<Citizen> implements ICit
     }
 
     @Override
+    @Cacheable
     public long getTotalSize() {
         return citizenDao.getTotalSize();
     }

@@ -33,12 +33,10 @@ import java.util.Map;
 //        @Result(name="success",location="/index.jsp"),
 //        @Result(name="failure",location="/index.jsp")
 })
-@CacheConfig(cacheNames = "baseCache")
 public class CitizenAction extends BaseAction<Citizen> {
     @Autowired
     ICitizenService citizenService;
 //http://localhost:8080/CTW/Citizen_add.do?baseEntity.name=yang&baseEntity.sex=xy&baseEntity.address=henan&baseEntity.birthday=2018-08-01
-    @CachePut
     public void add() {
         //测试级联保存
         Citizen citizen = new Citizen();
@@ -70,7 +68,6 @@ public class CitizenAction extends BaseAction<Citizen> {
     /**
      * 级联删除
      */
-    @CacheEvict(allEntries = true)
     public void delete(){
 //        String hql = "delete from Citizen where id =:id";
 //        Map<String,Object> map = new HashMap<>();
@@ -88,7 +85,6 @@ public class CitizenAction extends BaseAction<Citizen> {
     /**
      *查找
      */
-    @Cacheable
     public void find(){
         try {
            Citizen citizen = citizenService.findById(id);
@@ -101,7 +97,7 @@ public class CitizenAction extends BaseAction<Citizen> {
     /**
      *查找所有
      */
-    @Cacheable(value = "baseCache",key = "#root.targetClass + #root.methodName",cacheNames = "baseCache")
+//    @Cacheable(value = "baseCache",key = "#root.targetClass + #root.methodName",cacheNames = "baseCache")
     public void findAll(){
         try {
             List<Citizen> citizens = citizenService.findAll();
@@ -114,7 +110,6 @@ public class CitizenAction extends BaseAction<Citizen> {
     /**
      * 更新一个对象，测试
      */
-    @CachePut
     public void updateSingleObj(){
         //写一个测试的map集合
         Map<String,Object> map = new HashMap<>();
@@ -139,7 +134,6 @@ public class CitizenAction extends BaseAction<Citizen> {
      * 获取建行卡的条数
      * @return
      */
-    @Cacheable
     public void getTotalSize(){
         long size = citizenService.getTotalSize();
         writeJson(new Json(true,size));
@@ -164,7 +158,6 @@ public class CitizenAction extends BaseAction<Citizen> {
      * 批量删除测试
      * ids:例如：25,45,78,98
      */
-    @CacheEvict(allEntries = true)
     public void deleteByIds(){
         int flag = citizenService.deleteByIds(ids);
         if (flag > 0)
@@ -176,7 +169,6 @@ public class CitizenAction extends BaseAction<Citizen> {
     /**
      * 分页查询测试
      */
-    @Cacheable
     public void findByPage(){
         List<BankCard> list = citizenService.findByPage(pageBean);
         if (list == null)
